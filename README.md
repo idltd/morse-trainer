@@ -1,67 +1,77 @@
+# ·— ·—·· ·——· ···· ·— -··· · -
+
 # Morse Code Trainer
 
-An interactive Morse code trainer styled after a classic PCB training board. Learn the international Morse alphabet by navigating a dichotomic search tree — the same binary tree used by radio operators for over a century.
+[![Live App](https://img.shields.io/badge/PLAY_NOW-idltd.github.io-c8a84a?style=for-the-badge&logo=github)](https://idltd.github.io/morse-trainer/)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue?style=for-the-badge)](LICENSE)
+[![PWA Ready](https://img.shields.io/badge/PWA-Installable-22ff44?style=for-the-badge&logo=googlechrome&logoColor=white)](https://idltd.github.io/morse-trainer/)
 
-Built as a Progressive Web App: install it on your phone, use it offline.
+---
 
-## How It Works
+**Can you tell a dit from a dah?** This browser-based trainer teaches you Morse code the way radio operators have learned it for over a century — by navigating a binary tree. Every letter is a path: go left for dit, go right for dah.
 
-The tree encodes every letter of the alphabet. Starting from the root, each **dit** (short tap) branches left and each **dah** (long press) branches right. Every path through the tree lands on a letter.
+**[Launch the trainer](https://idltd.github.io/morse-trainer/)** — works on your phone, tablet, or desktop. Install it as an app and practise offline.
+
+---
+
+## The Tree
 
 ```
-              ●
-           ·/   \—
-          E       T
-        ·/ \—   ·/ \—
-       I    A   N    M
-      ...  ...  ...  ...
+                    ●
+                 ·/   \—
+               E         T
+            ·/ \—      ·/ \—
+           I    A      N    M
+          / \  / \    / \  / \
+         S  U R  W  D  K G  O
+        ···        ···        ···
+       H V F    L   P J  B X C Y  Z Q
 ```
 
-The bottom row holds the full 26-letter alphabet. Numbers 0–9 extend to a fifth level and are shown in a reference panel.
+Start at the top. Short tap (dit) goes left. Long press (dah) goes right. Land on your letter. That's it.
 
-## Modes
+Numbers (0–9) follow the same logic but go five levels deep — they're shown in a quick-reference panel so you don't need to memorise the tree.
 
-| Mode | What happens |
-|------|-------------|
-| **Explore** | Free play. Tap the key to navigate the tree and build words. Tap any node to hear its code. |
-| **Encode** | A target letter pulses on the tree. Tap its Morse code on the key. |
-| **Decode** | Hear a Morse sequence. Tap the same code back. Correct = green, wrong = red with the answer shown. |
+## Three Ways to Practise
+
+| | Mode | You do | The app does |
+|---|------|--------|-------------|
+| **1** | Explore | Tap freely | Shows where you are in the tree, builds decoded text |
+| **2** | Encode | Tap the Morse code | Picks a letter and highlights it — get it right or see the answer |
+| **3** | Decode | Listen, then tap it back | Plays a Morse sequence — you reproduce it |
 
 ## Controls
 
-- **Touch key** — short tap = dit (·), long press = dah (—)
-- **Keyboard** — spacebar (hold for dah), or type `.` and `-` directly
-- **Click a node** — hear its Morse code played back
-- **Backspace** — clear current input
+| Input | Dit (·) | Dah (—) |
+|-------|---------|---------|
+| Touch key | Short tap | Long press |
+| Keyboard | `.` key | `-` key |
+| Spacebar | Short press | Hold |
 
-## Running Locally
+Click any letter on the tree to hear how it sounds. Backspace clears your current input.
 
-Double-click `00-startup.bat` or:
+## Get It On Your Phone
 
-```
-python -m http.server 8000
-```
+1. Open **[idltd.github.io/morse-trainer](https://idltd.github.io/morse-trainer/)** in Chrome
+2. Rotate to **landscape**
+3. Tap the menu → **Add to Home Screen**
+4. Done — it works offline
 
-Open [http://localhost:8000](http://localhost:8000). Landscape orientation recommended.
+## Under the Hood
 
-## Installing as an App
+One HTML file. No frameworks. No build step. Just open it.
 
-On Android Chrome: menu → **Add to Home Screen**. The app works fully offline once installed.
-
-## Architecture
-
-Single-page PWA — everything in one HTML file with inline CSS and JS:
-
-| File | Purpose |
-|------|---------|
-| `index.html` | Complete app — tree rendering, audio engine, game logic |
-| `manifest.json` | PWA manifest for installability |
-| `sw.js` | Service worker for offline caching |
-
-**Audio**: Web Audio API generating 650 Hz sine tones — 120 ms for dit, 360 ms for dah.
-
-**Tree**: SVG with computed node positions. Four levels for the 26 English letters; numbers at level five shown as a reference table.
+| | |
+|---|---|
+| **Audio** | Web Audio API — 650 Hz sine wave, 120 ms dit, 360 ms dah |
+| **Display** | SVG tree with computed positions, CSS for the PCB aesthetic |
+| **Offline** | Service worker caches everything on first load |
+| **Size** | ~20 KB total |
 
 ## License
 
-[GNU Affero General Public License v3.0](LICENSE) — free to use, modify, and distribute. Derivative works, including those offered as a network service, must be released under the same license.
+**AGPL-3.0** — Use it, fork it, improve it. But if you host a modified version as a service, you must share your source code too. That's the deal.
+
+---
+
+*-··· · · ·——· &nbsp; -··· · · ·——· &nbsp; -··· · · ·——·*
