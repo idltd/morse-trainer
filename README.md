@@ -68,6 +68,14 @@ One HTML file. No frameworks. No build step. Just open it.
 | **Offline** | Service worker caches everything on first load |
 | **Size** | ~20 KB total |
 
+## Roadmap
+
+- **Words & Messages** — a mode for practising full words and sentences, not just individual letters. Built-in word lists graded by difficulty.
+- **Adaptive Training** — structured practice sessions that adjust difficulty based on your performance. Set goals, take tests, track progress.
+- **Weakness Targeting** — track your error rate per letter and weight practice toward the ones you struggle with. Spaced repetition so problem letters come back until they stick.
+
+Pull requests welcome on any of these.
+
 ## License
 
 **AGPL-3.0** — Use it, fork it, improve it. But if you host a modified version as a service, you must share your source code too. That's the deal.
