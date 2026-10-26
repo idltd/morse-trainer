@@ -54,15 +54,24 @@
 
     .app {
       width: 100%;
-      max-width: 480px;
       height: 100%;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       position: relative;
       overflow: hidden;
     }
 
-    /* Title */
+    .panel {
+      width: 240px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-left: 2px solid #2a2010;
+    }
+
     .title {
       text-align: center;
       padding: 8px 0 2px;
@@ -73,7 +82,6 @@
       flex-shrink: 0;
     }
 
-    /* Mode selector */
     .mode-bar {
       display: flex;
       justify-content: center;
@@ -98,22 +106,17 @@
       border-color: var(--gold);
     }
 
-    /* Tree area */
     .tree-wrap {
       flex: 1;
       min-height: 0;
+      min-width: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 4px;
+      padding: 8px;
     }
-    .tree-svg {
-      width: 100%;
-      height: 100%;
-      max-height: 420px;
-    }
+    .tree-svg { width: 100%; height: 100%; }
 
-    /* SVG styles */
     .trace-line {
       stroke: var(--trace);
       stroke-width: 2;
@@ -140,12 +143,6 @@
       rx: 4;
       cursor: pointer;
       transition: fill 0.2s;
-    }
-    .node-box.empty {
-      fill: var(--pcb-bg);
-      stroke: var(--gold-dim);
-      stroke-width: 0.5;
-      stroke-dasharray: 2 2;
     }
     .node-box.active {
       fill: #3a2808;
@@ -178,13 +175,7 @@
       dominant-baseline: central;
       pointer-events: none;
     }
-    .node-letter.empty {
-      fill: var(--gold-dim);
-      font-size: 10px;
-    }
-    .node-letter.active {
-      fill: #fff;
-    }
+    .node-letter.active { fill: #fff; }
     .node-code {
       fill: var(--gold-dim);
       font-size: 7px;
@@ -193,137 +184,77 @@
       pointer-events: none;
     }
 
-    /* LED indicators */
-    .led {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #300;
-      display: inline-block;
-    }
-    .led.on {
-      background: var(--led-red);
-      box-shadow: 0 0 6px var(--led-red), 0 0 12px rgba(255, 34, 0, 0.4);
-    }
-    .led.green {
-      background: #030;
-    }
-    .led.green.on {
-      background: var(--led-green);
-      box-shadow: 0 0 6px var(--led-green);
-    }
-
-    /* Display area */
     .display {
-      flex-shrink: 0;
-      padding: 6px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 4px;
     }
     .code-display {
-      font-size: 28px;
-      letter-spacing: 8px;
+      font-size: 24px;
+      letter-spacing: 6px;
       color: var(--gold-bright);
-      min-height: 36px;
+      min-height: 32px;
       text-align: center;
     }
     .decoded-display {
-      font-size: 14px;
+      font-size: 11px;
       color: var(--silkscreen);
-      min-height: 20px;
-      letter-spacing: 4px;
+      min-height: 18px;
+      letter-spacing: 2px;
       text-align: center;
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .prompt-display {
-      font-size: 18px;
-      color: var(--gold-bright);
-      min-height: 24px;
-      text-align: center;
-    }
-    .score-display {
-      font-size: 12px;
-      color: var(--gold-dim);
-    }
 
-    /* Key area */
+    .num-ref {
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      padding: 6px 8px;
+      background: var(--pcb-dark);
+    }
+    .num-ref-title {
+      font-size: 9px;
+      color: var(--gold-dim);
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .num-ref-title label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .num-ref-title input[type="checkbox"] {
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .num-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px 8px;
+      font-size: 11px;
+    }
+    .num-grid span { color: var(--gold); white-space: nowrap; }
+    .num-grid .num-char { color: var(--gold-bright); }
+
     .key-area {
-      flex-shrink: 0;
-      padding: 8px 16px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .key-hint {
       font-size: 10px;
       color: var(--gold-dim);
       text-align: center;
     }
-    .telegraph-key {
-      width: 200px;
-      height: 56px;
-      position: relative;
-      cursor: pointer;
-    }
-    .key-base {
-      position: absolute;
-      bottom: 0;
-      left: 20px;
-      right: 20px;
-      height: 16px;
-      background: linear-gradient(to bottom, #4a3a1a, #2a1a08);
-      border-radius: 3px;
-      border: 1px solid var(--gold-dim);
-    }
-    .key-arm {
-      position: absolute;
-      bottom: 14px;
-      left: 10px;
-      right: 50px;
-      height: 6px;
-      background: linear-gradient(to bottom, #b89838, #8a7028);
-      border-radius: 2px;
-      transform-origin: right center;
-      transition: transform 0.05s;
-    }
-    .key-knob {
-      position: absolute;
-      bottom: 12px;
-      left: 0;
-      width: 40px;
-      height: 24px;
-      background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
-      border: 1px solid #444;
-      border-radius: 6px 6px 4px 4px;
-      transition: transform 0.05s;
-    }
-    .key-pivot {
-      position: absolute;
-      bottom: 10px;
-      right: 40px;
-      width: 12px;
-      height: 20px;
-      background: linear-gradient(to right, #5a4a2a, #3a2a1a);
-      border-radius: 2px;
-      border: 1px solid var(--gold-dim);
-    }
-    .telegraph-key.pressed .key-arm {
-      transform: rotate(2deg);
-    }
-    .telegraph-key.pressed .key-knob {
-      transform: translateY(3px);
-    }
-
-    /* Touch key (simpler, bigger target) */
     .touch-key {
-      width: 90%;
-      max-width: 320px;
+      width: 100%;
       height: 64px;
       background: linear-gradient(to bottom, #3a3020, #1a1408);
       border: 2px solid var(--gold-dim);
@@ -331,7 +262,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
       cursor: pointer;
       transition: all 0.05s;
       -webkit-tap-highlight-color: transparent;
@@ -346,17 +276,7 @@
       font-size: 14px;
       pointer-events: none;
     }
-    .touch-key-dots {
-      display: flex;
-      gap: 6px;
-      pointer-events: none;
-    }
-    .touch-key-dots .led {
-      width: 10px;
-      height: 10px;
-    }
 
-    /* Screw holes */
     .screw {
       position: absolute;
       width: 12px;
@@ -380,7 +300,6 @@
     .screw.bl { bottom: 6px; left: 6px; }
     .screw.br { bottom: 6px; right: 6px; }
 
-    /* PCB edge styling */
     .app::before {
       content: '';
       position: absolute;
@@ -391,12 +310,28 @@
       z-index: 10;
     }
 
-    @media (max-height: 600px) {
-      .title { padding: 4px 0 0; font-size: 16px; }
-      .mode-bar { padding: 2px 8px; }
-      .display { padding: 4px 16px; }
-      .key-area { padding: 4px 16px 12px; }
-      .touch-key { height: 50px; }
+    @media (orientation: portrait) {
+      .app { flex-direction: column; }
+      .panel {
+        width: 100%;
+        border-left: none;
+        border-top: 2px solid #2a2010;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px 16px;
+      }
+      .title { width: 100%; }
+      .mode-bar { width: 100%; }
+      .display { flex: 1; min-width: 120px; }
+      .key-area { flex: 1; min-width: 160px; }
+    }
+    @media (max-height: 400px) {
+      .panel { gap: 6px; padding: 6px 12px; }
+      .title { font-size: 14px; letter-spacing: 4px; }
+      .touch-key { height: 48px; }
     }
   </style>
 </head>
@@ -407,455 +342,379 @@
     <div class="screw bl"></div>
     <div class="screw br"></div>
 
-    <div class="title">MORSE CODE</div>
-
-    <div class="mode-bar">
-      <button class="mode-btn active" data-mode="explore">EXPLORE</button>
-      <button class="mode-btn" data-mode="encode">ENCODE</button>
-      <button class="mode-btn" data-mode="decode">DECODE</button>
-    </div>
-
     <div class="tree-wrap">
-      <svg class="tree-svg" id="treeSvg" viewBox="0 0 820 380" preserveAspectRatio="xMidYMid meet">
-        <!-- Rendered by JS -->
-      </svg>
+      <svg class="tree-svg" id="treeSvg" viewBox="0 0 820 380" preserveAspectRatio="xMidYMid meet"></svg>
     </div>
 
-    <div class="display" id="display">
-      <div class="code-display" id="codeDisplay"></div>
-      <div class="decoded-display" id="decodedDisplay"></div>
-    </div>
+    <div class="panel">
+      <div class="title">MORSE CODE</div>
 
-    <div class="key-area">
-      <div class="touch-key" id="touchKey">
-        <div class="touch-key-label">‹ DIT &nbsp;·&nbsp; DAH ›</div>
+      <div class="mode-bar">
+        <button class="mode-btn active" data-mode="explore" title="Free play — tap the key to navigate the tree and build letters">EXPLORE</button>
+        <button class="mode-btn" data-mode="encode" title="A letter is shown — tap its Morse code on the key">ENCODE</button>
+        <button class="mode-btn" data-mode="decode" title="Hear a Morse sequence — tap the code back to identify the letter">DECODE</button>
       </div>
-      <div class="key-hint">SHORT TAP = DIT &nbsp;•&nbsp; LONG PRESS = DAH &nbsp;—&nbsp; SPACE = KEYBOARD</div>
+
+      <div class="num-ref">
+        <div class="num-ref-title"><label><input type="checkbox" id="includeNums"> INCLUDE IN PRACTICE</label></div>
+        <div class="num-grid">
+          <span><span class="num-char">1</span> ·————</span><span><span class="num-char">6</span> —····</span>
+          <span><span class="num-char">2</span> ··———</span><span><span class="num-char">7</span> ——···</span>
+          <span><span class="num-char">3</span> ···——</span><span><span class="num-char">8</span> ———··</span>
+          <span><span class="num-char">4</span> ····—</span><span><span class="num-char">9</span> ————·</span>
+          <span><span class="num-char">5</span> ·····</span><span><span class="num-char">0</span> —————</span>
+        </div>
+      </div>
+
+      <div class="display" id="display">
+        <div class="code-display" id="codeDisplay"></div>
+        <div class="decoded-display" id="decodedDisplay"></div>
+      </div>
+
+      <div class="key-area">
+        <div class="touch-key" id="touchKey">
+          <div class="touch-key-label">‹ DIT &nbsp;·&nbsp; DAH ›</div>
+        </div>
+        <div class="key-hint">SHORT = DIT &nbsp;•&nbsp; LONG = DAH &nbsp;—&nbsp; SPACE KEY</div>
+      </div>
     </div>
   </div>
 
   <script>
-    // Morse code tree data
-    const MORSE_MAP = {
-      '.': 'E', '-': 'T',
-      '..': 'I', '.-': 'A', '-.': 'N', '--': 'M',
-      '...': 'S', '..-': 'U', '.-.': 'R', '.--': 'W',
-      '-..': 'D', '-.-': 'K', '--.': 'G', '---': 'O',
-      '....': 'H', '...-': 'V', '..-.': 'F', '..--': 'Ü',
-      '.-..': 'L', '.-.-': 'Ä', '.--.': 'P', '.---': 'J',
-      '-...': 'B', '-..-': 'X', '-.-.': 'C', '-.--': 'Y',
-      '--..': 'Z', '--.-': 'Q', '---.': 'Ö', '----': 'CH',
+    // --- DATA ---
+    const MORSE = {
+      '.':'E', '-':'T',
+      '..':'I', '.-':'A', '-.':'N', '--':'M',
+      '...':'S', '..-':'U', '.-.':'R', '.--':'W',
+      '-..':'D', '-.-':'K', '--.':'G', '---':'O',
+      '....':'H', '...-':'V', '..-.':'F',
+      '.-..':'L', '.--.':'P', '.---':'J',
+      '-...':'B', '-..-':'X', '-.-.':'C', '-.--':'Y',
+      '--..':'Z', '--.-':'Q',
+      '.----':'1', '..---':'2', '...--':'3', '....-':'4', '.....':'5',
+      '-....':'6', '--...':'7', '---..':'8', '----.':'9', '-----':'0',
     };
-
-    const ENGLISH_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const REVERSE_MAP = {};
-    for (const [code, char] of Object.entries(MORSE_MAP)) {
-      if (ENGLISH_LETTERS.includes(char)) REVERSE_MAP[char] = code;
+    const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const ALL_CHARS = LETTERS + '0123456789';
+    const REVERSE = {};
+    for (const [code, ch] of Object.entries(MORSE)) {
+      if (ALL_CHARS.includes(ch)) REVERSE[ch] = code;
     }
 
-    // Tree layout
-    const LEVELS = 5;
-    const SVG_W = 820, SVG_H = 380;
-    const NODE_W = 28, NODE_H = 22;
-    const Y_POSITIONS = [20, 90, 160, 240, 330];
-
-    function buildTree() {
-      const nodes = [];
-      const edges = [];
-
-      // Root node
-      nodes.push({ code: '', char: '●', x: SVG_W / 2, y: Y_POSITIONS[0], level: 0, isEmpty: false });
-
-      for (let level = 1; level < LEVELS; level++) {
-        const count = Math.pow(2, level);
-        const spacing = (SVG_W - 20) / count;
-        for (let i = 0; i < count; i++) {
-          const code = buildCode(level, i);
-          const char = MORSE_MAP[code] || '';
-          const x = 10 + spacing * (i + 0.5);
-          const y = Y_POSITIONS[level];
-          const isEmpty = !char || !ENGLISH_LETTERS.includes(char);
-          nodes.push({ code, char: char || '', x, y, level, isEmpty: !char });
-
-          // Edge to parent
-          const parentIdx = Math.floor(i / 2);
-          const parentLevel = level - 1;
-          const parentCount = Math.pow(2, parentLevel);
-          const parentSpacing = (SVG_W - 20) / parentCount;
-          const px = parentLevel === 0 ? SVG_W / 2 : 10 + parentSpacing * (parentIdx + 0.5);
-          const py = Y_POSITIONS[parentLevel];
-          const isDit = i % 2 === 0;
-          edges.push({ x1: px, y1: py, x2: x, y2: y, isDit, code });
-        }
+    // --- AUDIO ---
+    let ctx = null;
+    function ensureAudio() {
+      if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state === 'suspended') ctx.resume();
+    }
+    function beep(ms) {
+      if (!ctx) return;
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sine';
+      o.frequency.value = 650;
+      o.connect(g);
+      g.connect(ctx.destination);
+      const t = ctx.currentTime;
+      g.gain.setValueAtTime(0.35, t);
+      g.gain.setValueAtTime(0.35, t + ms/1000 - 0.03);
+      g.gain.exponentialRampToValueAtTime(0.001, t + ms/1000);
+      o.start(t);
+      o.stop(t + ms/1000 + 0.01);
+    }
+    function playSequence(code) {
+      ensureAudio();
+      let d = 0;
+      for (const c of code) {
+        const ms = c === '.' ? 120 : 360;
+        setTimeout(() => beep(ms), d);
+        d += ms + 140;
       }
-      return { nodes, edges };
     }
 
-    function buildCode(level, index) {
-      let code = '';
-      let idx = index;
+    // --- TREE ---
+    const SVG_W = 820, SVG_H = 380;
+    const NW = 28, NH = 22;
+    const YPOS = [20, 90, 160, 240, 330];
+    const svg = document.getElementById('treeSvg');
+
+    function codeForPos(level, index) {
+      let c = '', idx = index;
       for (let l = level; l > 0; l--) {
-        code = (idx % 2 === 0 ? '.' : '-') + code;
+        c = (idx % 2 === 0 ? '.' : '-') + c;
         idx = Math.floor(idx / 2);
       }
-      return code;
+      return c;
     }
 
-    // Render tree
-    const svg = document.getElementById('treeSvg');
-    const { nodes, edges } = buildTree();
-
-    function renderTree() {
-      let html = '';
-      // Draw edges
-      for (const edge of edges) {
-        html += `<line class="trace-line" data-code="${edge.code}"
-          x1="${edge.x1}" y1="${edge.y1 + NODE_H/2}"
-          x2="${edge.x2}" y2="${edge.y2 - NODE_H/2}" />`;
-        // Label
-        const mx = (edge.x1 + edge.x2) / 2;
-        const my = (edge.y1 + NODE_H/2 + edge.y2 - NODE_H/2) / 2;
-        const label = edge.isDit ? '·' : '—';
-        html += `<text class="trace-label" x="${mx + (edge.isDit ? -6 : 6)}" y="${my}">${label}</text>`;
-      }
-      // Draw nodes
-      for (const node of nodes) {
-        const cls = node.isEmpty ? 'empty' : '';
-        html += `<rect class="node-box ${cls}" data-code="${node.code}"
-          x="${node.x - NODE_W/2}" y="${node.y - NODE_H/2}"
-          width="${NODE_W}" height="${NODE_H}" rx="4" />`;
-        if (node.char) {
-          html += `<text class="node-letter ${cls}" data-code="${node.code}"
-            x="${node.x}" y="${node.y}">${node.char}</text>`;
-        }
-        if (node.code && !node.isEmpty) {
-          const codeStr = node.code.replace(/\./g, '·').replace(/-/g, '—');
-          html += `<text class="node-code" x="${node.x}" y="${node.y + NODE_H/2 + 9}">${codeStr}</text>`;
+    (function renderTree() {
+      const allNodes = [];
+      allNodes.push({ code: '', char: '●', x: SVG_W/2, y: YPOS[0], empty: false });
+      for (let lv = 1; lv < 5; lv++) {
+        const cnt = 1 << lv;
+        const sp = (SVG_W - 20) / cnt;
+        for (let i = 0; i < cnt; i++) {
+          const code = codeForPos(lv, i);
+          const ch = MORSE[code] || '';
+          allNodes.push({
+            code, char: ch,
+            x: 10 + sp * (i + 0.5), y: YPOS[lv],
+            empty: !ch || !LETTERS.includes(ch)
+          });
         }
       }
-      svg.innerHTML = html;
-    }
-    renderTree();
-
-    // Audio
-    let audioCtx = null;
-    function initAudio() {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-
-    function playTone(durationMs) {
-      if (!audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = 650;
-      gain.gain.value = 0.3;
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      const now = audioCtx.currentTime;
-      gain.gain.setValueAtTime(0.3, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + durationMs / 1000);
-      osc.start(now);
-      osc.stop(now + durationMs / 1000 + 0.01);
-    }
-
-    function playDit() { playTone(80); }
-    function playDah() { playTone(240); }
-
-    function playMorseSequence(code, callback) {
-      initAudio();
-      let delay = 0;
-      const ditMs = 80, dahMs = 240, gap = 120;
-      for (let i = 0; i < code.length; i++) {
-        const dur = code[i] === '.' ? ditMs : dahMs;
-        setTimeout(() => playTone(dur), delay);
-        delay += dur + gap;
+      let h = '';
+      for (const n of allNodes) {
+        if (n.empty || !n.code) continue;
+        const parentCode = n.code.slice(0, -1);
+        const p = allNodes.find(a => a.code === parentCode);
+        if (p) {
+          const isDit = n.code.endsWith('.');
+          h += `<line class="trace-line" data-code="${n.code}" x1="${p.x}" y1="${p.y+NH/2}" x2="${n.x}" y2="${n.y-NH/2}"/>`;
+          const mx = (p.x+n.x)/2, my = (p.y+NH/2+n.y-NH/2)/2;
+          h += `<text class="trace-label" x="${mx+(isDit?-6:6)}" y="${my}">${isDit?'·':'—'}</text>`;
+        }
       }
-      if (callback) setTimeout(callback, delay + 300);
-    }
+      for (const n of allNodes) {
+        if (n.empty) continue;
+        h += `<rect class="node-box" data-code="${n.code}" x="${n.x-NW/2}" y="${n.y-NH/2}" width="${NW}" height="${NH}" rx="4"/>`;
+        h += `<text class="node-letter" data-code="${n.code}" x="${n.x}" y="${n.y}">${n.char}</text>`;
+        if (n.code) {
+          const vis = n.code.replace(/\./g,'·').replace(/-/g,'—');
+          h += `<text class="node-code" x="${n.x}" y="${n.y+NH/2+9}">${vis}</text>`;
+        }
+      }
+      svg.innerHTML = h;
+    })();
 
-    // State
-    let currentCode = '';
-    let decodedText = '';
-    let commitTimer = null;
+    // --- STATE ---
     let mode = 'explore';
-    let targetLetter = '';
-    let score = { correct: 0, total: 0 };
-    let pressStart = 0;
-    let isPressed = false;
-    let toneOsc = null;
-    let toneGain = null;
+    let input = '';
+    let decoded = '';
+    let target = '';
+    let score = { ok: 0, n: 0 };
+    let gapTimer = null;
+    let pressing = false;
+    let pressT = 0;
+    let liveOsc = null, liveGain = null;
+    // phase: 'input' = accepting key taps, 'result' = showing answer, tap to continue
+    let phase = 'input';
 
-    const codeDisplay = document.getElementById('codeDisplay');
-    const decodedDisplay = document.getElementById('decodedDisplay');
-    const touchKey = document.getElementById('touchKey');
+    const codeEl = document.getElementById('codeDisplay');
+    const decEl = document.getElementById('decodedDisplay');
+    const keyEl = document.getElementById('touchKey');
 
-    // Highlight current path in tree
-    function highlightPath(code, className = 'active') {
-      // Clear all highlights
-      svg.querySelectorAll('.node-box').forEach(el => {
-        el.classList.remove('active', 'correct', 'target');
-      });
-      svg.querySelectorAll('.node-letter').forEach(el => {
-        el.classList.remove('active');
-      });
-      svg.querySelectorAll('.trace-line').forEach(el => {
-        el.classList.remove('active');
-      });
-
-      if (!code && code !== '') return;
-
-      // Highlight current node
-      const nodeBox = svg.querySelector(`.node-box[data-code="${code}"]`);
-      const nodeLetter = svg.querySelector(`.node-letter[data-code="${code}"]`);
-      if (nodeBox) nodeBox.classList.add(className);
-      if (nodeLetter) nodeLetter.classList.add(className === 'active' ? 'active' : '');
-
-      // Highlight path edges
-      if (className === 'active') {
-        for (let i = 1; i <= code.length; i++) {
-          const partial = code.substring(0, i);
-          const traceLine = svg.querySelector(`.trace-line[data-code="${partial}"]`);
-          if (traceLine) traceLine.classList.add('active');
-        }
+    // --- DISPLAY ---
+    function show() {
+      codeEl.textContent = input.replace(/\./g,'·').replace(/-/g,'—') || ' ';
+      if (mode === 'explore') {
+        decEl.textContent = decoded || 'TAP THE KEY TO BEGIN';
+      } else if (mode === 'encode') {
+        decEl.textContent = phase === 'result'
+          ? decoded
+          : (target ? `TYPE: ${target}    ${score.ok}/${score.n}` : '');
+      } else {
+        decEl.textContent = phase === 'result'
+          ? decoded
+          : `LISTEN & DECODE    ${score.ok}/${score.n}`;
       }
     }
 
-    function highlightTarget(letter) {
-      const code = REVERSE_MAP[letter];
+    // --- TREE HIGHLIGHTING ---
+    function clearHL() {
+      svg.querySelectorAll('.node-box').forEach(e => e.classList.remove('active','correct','target'));
+      svg.querySelectorAll('.node-letter').forEach(e => e.classList.remove('active'));
+      svg.querySelectorAll('.trace-line').forEach(e => e.classList.remove('active'));
+    }
+    function hlPath(code) {
+      clearHL();
+      if (code == null) return;
+      const box = svg.querySelector(`.node-box[data-code="${code}"]`);
+      const txt = svg.querySelector(`.node-letter[data-code="${code}"]`);
+      if (box) box.classList.add('active');
+      if (txt) txt.classList.add('active');
+      for (let i = 1; i <= code.length; i++) {
+        const seg = svg.querySelector(`.trace-line[data-code="${code.substring(0,i)}"]`);
+        if (seg) seg.classList.add('active');
+      }
+    }
+    function hlCorrect(code) {
+      clearHL();
+      const box = svg.querySelector(`.node-box[data-code="${code}"]`);
+      if (box) box.classList.add('correct');
+    }
+    function hlTarget(ch) {
+      const code = REVERSE[ch];
       if (!code) return;
-      const nodeBox = svg.querySelector(`.node-box[data-code="${code}"]`);
-      if (nodeBox) nodeBox.classList.add('target');
+      const box = svg.querySelector(`.node-box[data-code="${code}"]`);
+      if (box) box.classList.add('target');
     }
 
-    // Input handling
-    function addSymbol(symbol) {
-      initAudio();
-      if (symbol === '.') playDit();
-      else playDah();
-
-      currentCode += symbol;
-      updateDisplay();
-      highlightPath(currentCode);
-
-      clearTimeout(commitTimer);
-      commitTimer = setTimeout(commitLetter, 800);
+    // --- CHALLENGE ---
+    function nextRound() {
+      const pool = document.getElementById('includeNums').checked ? ALL_CHARS : LETTERS;
+      target = pool[Math.floor(Math.random() * pool.length)];
+      input = '';
+      decoded = '';
+      phase = 'input';
+      clearHL();
+      if (mode === 'encode') hlTarget(target);
+      if (mode === 'decode') playSequence(REVERSE[target]);
+      show();
     }
 
-    function commitLetter() {
-      if (!currentCode) return;
-      const letter = MORSE_MAP[currentCode];
+    // --- COMMIT (gap timer fired) ---
+    function commit() {
+      if (!input) return;
+      const letter = MORSE[input];
 
       if (mode === 'explore') {
-        if (letter && ENGLISH_LETTERS.includes(letter)) {
-          decodedText += letter;
-          highlightPath(currentCode, 'correct');
-        } else {
-          decodedText += '?';
-        }
-        setTimeout(() => {
-          currentCode = '';
-          highlightPath('');
-          updateDisplay();
-        }, 500);
-      } else if (mode === 'encode') {
-        if (letter === targetLetter) {
-          score.correct++;
-          highlightPath(currentCode, 'correct');
-          setTimeout(() => {
-            currentCode = '';
-            highlightPath('');
-            nextChallenge();
-          }, 600);
-        } else {
-          highlightPath(currentCode, 'active');
-          setTimeout(() => {
-            currentCode = '';
-            highlightPath('');
-            highlightTarget(targetLetter);
-            updateDisplay();
-          }, 400);
-        }
-        score.total++;
-      } else if (mode === 'decode') {
-        if (letter === targetLetter) {
-          score.correct++;
-          decodedText = letter + ' ✓';
-          highlightPath(currentCode, 'correct');
-        } else {
-          decodedText = (letter || '?') + ' ✗  (was ' + targetLetter + ')';
-          highlightPath(currentCode, 'active');
-        }
-        score.total++;
-        setTimeout(() => {
-          currentCode = '';
-          highlightPath('');
-          nextChallenge();
-        }, 800);
+        decoded += (letter && ALL_CHARS.includes(letter)) ? letter : '?';
+        if (letter) hlCorrect(input);
+        show();
+        const old = input;
+        setTimeout(() => { if (input === old) { input = ''; clearHL(); show(); } }, 500);
+        return;
       }
-      updateDisplay();
-    }
 
-    function updateDisplay() {
-      const displayCode = currentCode.replace(/\./g, '·').replace(/-/g, '—');
-      codeDisplay.textContent = displayCode || ' ';
-
-      if (mode === 'explore') {
-        decodedDisplay.textContent = decodedText || 'TAP THE KEY TO BEGIN';
-      } else if (mode === 'encode') {
-        decodedDisplay.textContent = targetLetter
-          ? `TYPE: ${targetLetter}    ${score.correct}/${score.total}`
-          : `SCORE: ${score.correct}/${score.total}`;
-      } else if (mode === 'decode') {
-        decodedDisplay.textContent = decodedText
-          || `LISTEN AND DECODE    ${score.correct}/${score.total}`;
-      }
-    }
-
-    function nextChallenge() {
-      const letters = ENGLISH_LETTERS;
-      targetLetter = letters[Math.floor(Math.random() * letters.length)];
-      currentCode = '';
-      decodedText = '';
+      score.n++;
+      const ok = letter === target;
+      if (ok) score.ok++;
 
       if (mode === 'encode') {
-        highlightTarget(targetLetter);
-      } else if (mode === 'decode') {
-        const code = REVERSE_MAP[targetLetter];
-        playMorseSequence(code);
+        if (ok) {
+          hlCorrect(input);
+          decoded = `${letter} ✓    ${score.ok}/${score.n}`;
+        } else {
+          hlPath(input);
+          decoded = `${letter||'?'} ✗ was ${target}    ${score.ok}/${score.n}`;
+        }
+      } else {
+        if (ok) {
+          hlCorrect(REVERSE[target]);
+          decoded = `${letter} ✓    ${score.ok}/${score.n}`;
+        } else {
+          hlPath(input);
+          decoded = `${letter||'?'} ✗ was ${target} (${REVERSE[target].replace(/\./g,'·').replace(/-/g,'—')})    ${score.ok}/${score.n}`;
+          const correctBox = svg.querySelector(`.node-box[data-code="${REVERSE[target]}"]`);
+          if (correctBox) correctBox.classList.add('correct');
+        }
       }
-      updateDisplay();
+      input = '';
+      phase = 'result';
+      show();
+      setTimeout(() => {
+        if (phase === 'result') nextRound();
+      }, ok ? 800 : 1500);
     }
 
-    // Touch/mouse key handling
-    function startPress(e) {
-      e.preventDefault();
-      if (isPressed) return;
-      initAudio();
-      isPressed = true;
-      pressStart = Date.now();
-      touchKey.classList.add('pressed');
-
-      // Start continuous tone
-      toneOsc = audioCtx.createOscillator();
-      toneGain = audioCtx.createGain();
-      toneOsc.type = 'sine';
-      toneOsc.frequency.value = 650;
-      toneGain.gain.value = 0.3;
-      toneOsc.connect(toneGain);
-      toneGain.connect(audioCtx.destination);
-      toneOsc.start();
-    }
-
-    function endPress(e) {
-      e.preventDefault();
-      if (!isPressed) return;
-      isPressed = false;
-      touchKey.classList.remove('pressed');
-
-      // Stop tone
-      if (toneOsc) {
-        toneGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
-        toneOsc.stop(audioCtx.currentTime + 0.03);
-        toneOsc = null;
-        toneGain = null;
+    // --- KEY INPUT ---
+    function onSymbol(sym) {
+      if (phase === 'result') {
+        nextRound();
+        return;
       }
-
-      const duration = Date.now() - pressStart;
-      const symbol = duration < 180 ? '.' : '-';
-      currentCode += symbol;
-      updateDisplay();
-      highlightPath(currentCode);
-
-      clearTimeout(commitTimer);
-      commitTimer = setTimeout(commitLetter, 800);
+      ensureAudio();
+      beep(sym === '.' ? 120 : 360);
+      input += sym;
+      hlPath(input);
+      show();
+      clearTimeout(gapTimer);
+      gapTimer = setTimeout(commit, 800);
     }
 
-    // Event listeners
-    touchKey.addEventListener('mousedown', startPress);
-    touchKey.addEventListener('mouseup', endPress);
-    touchKey.addEventListener('mouseleave', (e) => { if (isPressed) endPress(e); });
-    touchKey.addEventListener('touchstart', startPress, { passive: false });
-    touchKey.addEventListener('touchend', endPress, { passive: false });
-    touchKey.addEventListener('touchcancel', endPress, { passive: false });
+    function keyDown(e) {
+      e.preventDefault();
+      if (pressing) return;
+      if (phase === 'result') { nextRound(); return; }
+      ensureAudio();
+      pressing = true;
+      pressT = Date.now();
+      keyEl.classList.add('pressed');
+      liveOsc = ctx.createOscillator();
+      liveGain = ctx.createGain();
+      liveOsc.type = 'sine';
+      liveOsc.frequency.value = 650;
+      liveGain.gain.value = 0.35;
+      liveOsc.connect(liveGain);
+      liveGain.connect(ctx.destination);
+      liveOsc.start();
+    }
 
-    // Keyboard support
-    document.addEventListener('keydown', (e) => {
+    function keyUp(e) {
+      e.preventDefault();
+      if (!pressing) return;
+      pressing = false;
+      keyEl.classList.remove('pressed');
+      if (liveOsc) {
+        liveGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.02);
+        liveOsc.stop(ctx.currentTime + 0.03);
+        liveOsc = null; liveGain = null;
+      }
+      const sym = (Date.now() - pressT) < 180 ? '.' : '-';
+      input += sym;
+      hlPath(input);
+      show();
+      clearTimeout(gapTimer);
+      gapTimer = setTimeout(commit, 800);
+    }
+
+    // --- EVENTS ---
+    keyEl.addEventListener('mousedown', keyDown);
+    keyEl.addEventListener('mouseup', keyUp);
+    keyEl.addEventListener('mouseleave', e => { if (pressing) keyUp(e); });
+    keyEl.addEventListener('touchstart', keyDown, { passive: false });
+    keyEl.addEventListener('touchend', keyUp, { passive: false });
+    keyEl.addEventListener('touchcancel', keyUp, { passive: false });
+
+    document.addEventListener('keydown', e => {
       if (e.repeat) return;
-      if (e.code === 'Space') {
+      if (e.code === 'Space') { keyDown(e); }
+      else if (e.key === '.') { e.preventDefault(); onSymbol('.'); }
+      else if (e.key === '-') { e.preventDefault(); onSymbol('-'); }
+      else if (e.key === 'Backspace') {
         e.preventDefault();
-        startPress(e);
-      } else if (e.key === '.') {
-        e.preventDefault();
-        addSymbol('.');
-      } else if (e.key === '-') {
-        e.preventDefault();
-        addSymbol('-');
-      } else if (e.key === 'Backspace') {
-        e.preventDefault();
-        currentCode = '';
-        decodedText = '';
-        clearTimeout(commitTimer);
-        highlightPath('');
-        if (mode === 'encode' && targetLetter) highlightTarget(targetLetter);
-        updateDisplay();
+        input = ''; decoded = ''; phase = 'input';
+        clearTimeout(gapTimer);
+        clearHL();
+        if (mode === 'encode' && target) hlTarget(target);
+        show();
       }
     });
-    document.addEventListener('keyup', (e) => {
-      if (e.code === 'Space') {
-        e.preventDefault();
-        endPress(e);
+    document.addEventListener('keyup', e => {
+      if (e.code === 'Space') keyUp(e);
+    });
+
+    svg.addEventListener('click', e => {
+      const el = e.target.closest('[data-code]');
+      if (!el) return;
+      const code = el.dataset.code;
+      const ch = MORSE[code];
+      if (ch && ALL_CHARS.includes(ch)) {
+        ensureAudio();
+        playSequence(code);
+        hlCorrect(code);
+        codeEl.textContent = code.replace(/\./g,'·').replace(/-/g,'—');
+        setTimeout(() => { clearHL(); show(); }, 1200);
       }
     });
 
-    // Click on tree nodes
-    svg.addEventListener('click', (e) => {
-      const target = e.target.closest('[data-code]');
-      if (!target) return;
-      const code = target.dataset.code;
-      const letter = MORSE_MAP[code];
-      if (letter && ENGLISH_LETTERS.includes(letter)) {
-        initAudio();
-        playMorseSequence(code);
-        highlightPath(code, 'correct');
-        codeDisplay.textContent = code.replace(/\./g, '·').replace(/-/g, '—');
-        setTimeout(() => highlightPath(currentCode || ''), 1200);
-      }
-    });
-
-    // Mode switching
     document.querySelectorAll('.mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         mode = btn.dataset.mode;
-        currentCode = '';
-        decodedText = '';
-        targetLetter = '';
-        score = { correct: 0, total: 0 };
-        clearTimeout(commitTimer);
-        highlightPath('');
-        if (mode === 'encode' || mode === 'decode') {
-          nextChallenge();
-        }
-        updateDisplay();
+        input = ''; decoded = ''; target = ''; phase = 'input';
+        score = { ok: 0, n: 0 };
+        clearTimeout(gapTimer);
+        clearHL();
+        if (mode === 'encode' || mode === 'decode') nextRound();
+        show();
       });
     });
 
-    // Replay button for decode mode
-    svg.addEventListener('dblclick', () => {
-      if (mode === 'decode' && targetLetter) {
-        playMorseSequence(REVERSE_MAP[targetLetter]);
-      }
-    });
-
-    // Init
-    updateDisplay();
-
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
-    }
+    show();
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
   </script>
 </body>
 </html>
